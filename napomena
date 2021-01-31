@@ -1,0 +1,14 @@
+rezultati na skupovima od 51 i 100 gradova
+
+
+           Literatura    |   Moj algoritam
+        |prosek najbolji | prosek najbolji
+eil51   | 427     425    |  469     459
+KroA100 |21282   21281   | 23199   22567
+
+za skup eil51 sam koristio parametre Q=10, ro=0.05
+a za skup KroA100 sam koristio parametre Q=100, ro=0.005
+oba algoritma su izvrasavana na 1000 iteracija dok su u literaturu izvrsavana na 2500 iteracija
+prosek je uzet za 10 ponavljanja algoritma
+
+
