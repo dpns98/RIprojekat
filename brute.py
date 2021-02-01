@@ -1,9 +1,10 @@
 import numpy as np
 import math
-from python_tsp.exact import solve_tsp_dynamic_programming
+import more_itertools
+from matplotlib import pyplot as plt
 
 nodes = []
-f = open("oliver30", "r", newline='')
+f = open("10gradova", "r", newline='')
 lines = f.readlines()
 for l in lines:
 	s = [float(x) for x in l.split(" ")]
@@ -12,9 +13,25 @@ for l in lines:
 edges = [[math.sqrt((nodes[i][0]-nodes[j][0]) ** 2.0 + (nodes[i][1]-nodes[j][1]) ** 2.0) for i in range(len(nodes))] for j in range(len(nodes))]
 
 edges = np.array(edges)
+n = len(nodes)
+best = float('inf')
+i = ()
 
-permutation, distance = solve_tsp_dynamic_programming(edges)
-print(distance)
+for p in more_itertools.distinct_permutations(range(n)):
+	s = sum([edges[p[i]][p[(i + 1) % n]] for i in range(n)])
+	if s < best:
+		best = s
+		i = p
+		print(best)
+		print(p)
 
-# slozenost ovog algoritma za skup od 30 gradova je 2^30 * 30^2 sto znaci da bi se algoritam izvrsavao preko 3 sata
-# za vece skupove nisam ni pokusavao brute force algoritam
+print("najbolji rezultat")
+print(best)
+
+x = [nodes[j][0] for j in i]
+x.append(x[0])
+y = [nodes[j][1] for j in i]
+y.append(y[0])
+plt.plot(x, y, linewidth=1)
+plt.scatter(x, y, s=math.pi * (math.sqrt(2.0) ** 2.0))
+plt.show()

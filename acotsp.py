@@ -49,8 +49,8 @@ class TSP:
 		self.generations = generations
 		self.nodes = nodes
 		self.num_nodes = len(nodes)
-		self.rho = 0.005
-		self.Q = 100.0
+		self.rho = 0.1
+		self.Q = 1.0
 		self.edges = [[Edge(nodes[i], nodes[j]) for i in range(self.num_nodes)] for j in range(self.num_nodes)]
 		#self.edges = [[Edge1(nodes[i][j]) for i in range(self.num_nodes)] for j in range(self.num_nodes)]
 		self.colony = [Ant(self.num_nodes, self.edges) for _ in range(self.colony_size)]
@@ -76,7 +76,7 @@ class TSP:
 					print('Generation: ' + str(step))
 					print('Best distance: ' + str(self.best_distance))
 					print()
-			print(best_iter)
+			#print(best_iter)
 			# Elitizam - dodaj feromone na najbolju putanju
 			for i in range(self.num_nodes):
 				self.edges[self.best_tour[i]][self.best_tour[(i + 1) % self.num_nodes]].pheromone += self.Q / self.best_distance
@@ -101,7 +101,7 @@ class TSP:
 colony_size = 10
 generations = 1000
 nodes = []
-f = open("KroA100", "r", newline='')
+f = open("10gradova", "r", newline='')
 lines = f.readlines()
 for l in lines:
 	s = [float(x) for x in l.split(" ")]
